@@ -18,9 +18,11 @@
   "homepage": "https://github.com/dankosykh/graphql-node-API#readme",
   "dependencies": {
     "apollo-server-express": "^2.25.2",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "graphql": "^15.5.1",
-    "graphql-tag": "^2.12.5"
+    "graphql-tag": "^2.12.5",
+    "pg": "^8.6.0"
   },
   "devDependencies": {
     "jest": "^27.0.6"
