@@ -1,4 +1,4 @@
-const { createSalt, hash } = require("../src/auth/crypto");
+const { createSalt, hash } = require("../../src/db/crypto");
 
 const password = "kitty";
 const salt = createSalt();

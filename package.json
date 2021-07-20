@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "start": "node src",
+    "test": "jest --detectOpenHandles"
   },
   "repository": {
     "type": "git",

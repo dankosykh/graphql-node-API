@@ -40,6 +40,26 @@ createdb -h $PGHOST -p $PGPORT -U $PGUSER graphql_API
 psql -h $PGHOST -d graphql_API -U $PGUSER -p $PGPORT -a -w -f schema.sql
 ```
 
+Testing
+
+1. Create Mock DB
+
+```bash
+createdb -h $PGHOST -p $PGPORT -U $PGUSER mock_graphql_API
+```
+
+2. Load schema to postgres
+
+```bash
+psql -h $PGHOST -d mock_graphql_API -U $PGUSER -p $PGPORT -a -w -f mockSchema.sql
+```
+
+3. Run tests
+
+```bash
+npm run test
+```
+
 ### Design Decisions
 
 - Database env variable set for simplicity

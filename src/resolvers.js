@@ -1,8 +1,15 @@
+// const auth = require("./auth");
+const { models } = require("./db");
+
 const resolvers = {
   Query: {
-    users: (_, __, { user }) => [user],
+    user: (_, { id }, { context }) => {
+      return models.fimdOneUser(id);
+    },
   },
-  Mutation: {},
+  // Mutation: {
+  //   signUp(_ , {input},
+  // },
 };
 
 module.exports = resolvers;

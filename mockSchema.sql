@@ -22,3 +22,6 @@ CREATE TABLE posts (
 
 CREATE INDEX username_idx ON users (username);
 CREATE INDEX post_idx ON posts (post_id);
+
+-- initial testing
+INSERT INTO users(username, email, salt, password_hash) VALUES ('DK','dk@gmail.com', 'thisisasaltystring', 'shouldbeahashedpasswordwithsaltadded');

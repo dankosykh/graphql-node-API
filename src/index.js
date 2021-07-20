@@ -13,6 +13,7 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context({ req }) {},
 });
 
 server.applyMiddleware({ app, path: "/graphql" });
