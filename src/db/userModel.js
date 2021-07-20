@@ -1,20 +1,26 @@
 const { createSalt, hash } = require("./crypto");
 
 const UserModel = {
-  fimdOneUser: (db, username) => {
+  fimdOneUser: (db, { user_id, username }) => {
+    let sqlOption = "";
+    if (user_id) {
+      sqlOption += ` WHERE user_id = ${user_id}`;
+    } else {
+      sqlOption += ` WHERE username = '${username}'`;
+    }
     const sql = `
       SELECT
         user_id, created_at, username, email
       FROM
         users
-      WHERE
-        username = $1
+      ${sqlOption}
     `;
     return db
-      .query(sql, [username])
+      .query(sql)
       .then((res) => res.rows[0])
       .catch((e) => console.log(e));
   },
+
   createNewUser: (db, { username, email, password }) => {
     const salt = createSalt();
     const hashedPassword = hash(password, salt);
@@ -24,6 +30,8 @@ const UserModel = {
         users(username, email, salt, password_hash)
       VALUES
         ($1, $2, $3, $4)
+      RETURNING
+        user_id
       `;
     let fields = [username, email, salt, hashedPassword];
     return db
@@ -31,7 +39,7 @@ const UserModel = {
       .then((res) => res)
       .catch((e) => console.log(e));
   },
-  // need username and update field
+
   editEmail: (db, { username, email }) => {
     const sql = `
       UPDATE
@@ -47,6 +55,7 @@ const UserModel = {
       .then((res) => res)
       .catch((e) => console.log(e));
   },
+
   deleteOne: (db, { username }) => {
     const sql = `
       DELETE FROM

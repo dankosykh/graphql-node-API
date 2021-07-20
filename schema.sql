@@ -24,4 +24,8 @@ CREATE INDEX username_idx ON users (username);
 CREATE INDEX post_idx ON posts (post_id);
 
 -- initial testing
+-- for testing
 INSERT INTO users(username, email, salt, password_hash) VALUES ('DK','dk@gmail.com', 'thisisasaltystring', 'shouldbeahashedpasswordwithsaltadded');
+INSERT INTO users(username, email, salt, password_hash) VALUES ('Gary','gary@gmail.com', 'kosherSalt', 'higlyHashedPassword');
+INSERT INTO posts(user_id, message) VALUES (1,'This is an initial post');
+INSERT INTO posts(user_id, message) VALUES (2,'I too may post');

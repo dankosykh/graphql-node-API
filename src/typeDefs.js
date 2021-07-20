@@ -18,18 +18,19 @@ const typeDefs = gql`
   #   token: String!
   # }
 
-  # type Post {
-  #   id: ID!
-  #   createdAt: String!
-  #   author: User!
-  #   likes: Int!
-  #   message: String!
-  # }
+  type Post {
+    post_id: ID!
+    posted_at: String!
+    author: User!
+    likes: Int!
+    message: String!
+  }
 
   type Query {
     user(username: String!): User!
-    # posts: [Post]!
-    # post(id: ID!): Post!
+    userPosts(user_id: Int!): [Post]!
+    allPosts: [Post]!
+    post(post_id: ID!): Post
   }
 
   # type Mutation {

@@ -1,9 +1,9 @@
 const jwt = require("jsonwebtoken");
 
-const generateToken = ({ user_id, email }) => {
+const generateToken = ({ username, email }) => {
   return jwt.sign(
     {
-      user_id,
+      username,
       email,
     },
     process.env.SECRET,
@@ -13,4 +13,4 @@ const generateToken = ({ user_id, email }) => {
 
 const verifyToken = (token) => {};
 
-console.log(generateToken({ user_id: 4, email: "dk@getMaxListeners.com" }));
+console.log(generateToken({ username: 4, email: "dk@getMaxListeners.com" }));
