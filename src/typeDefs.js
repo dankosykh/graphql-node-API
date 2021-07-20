@@ -3,7 +3,7 @@ const gql = require("graphql-tag");
 const typeDefs = gql`
   type User {
     user_id: ID!
-    createdAt: String!
+    created_at: String!
     email: String!
     username: String!
   }
@@ -27,7 +27,7 @@ const typeDefs = gql`
   # }
 
   type Query {
-    user(id: ID!): User!
+    user(username: String!): User!
     # posts: [Post]!
     # post(id: ID!): Post!
   }

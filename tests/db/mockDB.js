@@ -1,6 +1,7 @@
 const { Pool } = require("pg");
+const UserModel = require("../../src/db/userModel");
 
-const db = new Pool({
+const mockDB = new Pool({
   user: process.env.PGUSER,
   host: process.env.PGHOST,
   database: process.env.PGMOCKDATABASE,
@@ -8,4 +9,4 @@ const db = new Pool({
   port: process.env.PGPORT,
 });
 
-module.exports = db;
+module.exports = { mockDB, UserModel };

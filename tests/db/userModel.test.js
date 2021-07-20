@@ -1,7 +1,6 @@
 require("dotenv").config();
 
-const { UserModel } = require("../../src/db");
-const mockDB = require("./mockDB");
+const { mockDB, UserModel } = require("./mockDB");
 
 describe("test user model queries", () => {
   try {
@@ -23,8 +22,29 @@ describe("test user model queries", () => {
           expect(data.username).toBe(username);
         });
     });
+
+    test("it should update a field", () => {
+      let username = "TEST_TEST";
+      let email = "editting@test.com";
+      return UserModel.editEmail(mockDB, { username, email })
+        .then(() => UserModel.fimdOneUser(mockDB, username))
+        .then((data) => {
+          expect(data.email).toBe(email);
+        });
+    });
+
+    test("it should delete a user", () => {
+      let username = "TEST_TEST";
+      let email = "editting@test.com";
+      return UserModel.deleteOne(mockDB, { username })
+        .then(() => UserModel.fimdOneUser(mockDB, username))
+        .then((data) => expect(data).toBeUndefined())
+        .catch((e) => {
+          throw new Error("should not be in catch block");
+        });
+    });
   } catch (e) {
-    console.log(e);
+    throw new Error("Failed in catch of Try / Catch");
   }
 });
 
@@ -33,6 +53,8 @@ describe("should exit the pool", () => {
     mockDB
       .end()
       .then(() => expect(1 + 1).toBe(2))
-      .catch(console.log);
+      .catch(() => {
+        throw new Error("error in closing the db pool");
+      });
   });
 });

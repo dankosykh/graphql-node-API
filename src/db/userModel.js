@@ -4,7 +4,7 @@ const UserModel = {
   fimdOneUser: (db, username) => {
     const sql = `
       SELECT
-        user_id, username
+        user_id, created_at, username, email
       FROM
         users
       WHERE
@@ -31,8 +31,35 @@ const UserModel = {
       .then((res) => res)
       .catch((e) => console.log(e));
   },
-  // editOne: (fields) => {},
-  // deleteOne: (fields) => {},
+  // need username and update field
+  editEmail: (db, { username, email }) => {
+    const sql = `
+      UPDATE
+        users
+      SET
+        email = ($1)
+      WHERE
+        username = ($2)
+      `;
+    let fields = [email, username];
+    return db
+      .query(sql, fields)
+      .then((res) => res)
+      .catch((e) => console.log(e));
+  },
+  deleteOne: (db, { username }) => {
+    const sql = `
+      DELETE FROM
+        users
+      WHERE
+        username = ($1)
+      `;
+    let fields = [username];
+    return db
+      .query(sql, fields)
+      .then((res) => res)
+      .catch((e) => console.log(e));
+  },
 };
 
 module.exports = UserModel;
