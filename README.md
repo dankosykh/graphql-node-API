@@ -43,4 +43,4 @@ psql -h $PGHOST -d graphql_API -U $PGUSER -p $PGPORT -a -w -f schema.sql
 ### Design Decisions
 
 - Database env variable set for simplicity
-- One database created for simplicity. Salt ideally would be stored on a separate DB.
+- One database created for simplicity. Salt and passwords would be stored on a separate DB.
