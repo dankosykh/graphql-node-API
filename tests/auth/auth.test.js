@@ -26,6 +26,20 @@ describe("test jwt functions", () => {
       });
   });
 
+  it("should not be able to decode expired jwt token", () => {
+    testToken = generateToken(user, secretKey, "1s");
+
+    jest.setTimeout(1500);
+    verifyToken(testToken, secretKey)
+      .then((decoded) => {
+        expect(decoded.user_id).toBeFalsey();
+        expect(decoded.username).toBeFalsey();
+      })
+      .catch((e) => {
+        throw new Error("Should have passed into then block");
+      });
+  });
+
   it("should return null with invalid token", () => {
     verifyToken("a" + testToken.slice(1), secretKey)
       .then((decoded) => {

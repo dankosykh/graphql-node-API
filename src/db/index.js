@@ -1,6 +1,7 @@
 const { Pool } = require("pg");
 const UserModel = require("./userModel");
 const PostModel = require("./postModel");
+const { hash } = require("./crypto");
 
 const db = new Pool({
   user: process.env.PGUSER,
@@ -10,4 +11,4 @@ const db = new Pool({
   port: process.env.PGPORT,
 });
 
-module.exports = { db, UserModel, PostModel };
+module.exports = { db, UserModel, PostModel, hash };

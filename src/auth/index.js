@@ -30,4 +30,27 @@ const authenticated = (context, next) => {
   return next();
 };
 
-module.exports = { generateToken, verifyToken, getUserContent, authenticated };
+const isUniqueField = (field) => {
+  return new Promise((resolve, reject) => {
+    console.log(field);
+    UserModel.fimdOneUser(db, field)
+      .then((data) => {
+        console.log("i unique field: " + data);
+        // if (data !== null) {
+        //   reject();
+        // }
+        // resolve();
+      })
+      .catch((data) => {
+        throw new Error("DB error on sign up");
+      });
+  });
+};
+
+module.exports = {
+  generateToken,
+  verifyToken,
+  getUserContent,
+  authenticated,
+  isUniqueField,
+};

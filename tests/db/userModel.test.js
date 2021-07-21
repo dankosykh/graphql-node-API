@@ -21,6 +21,15 @@ describe("test user model queries", () => {
       });
     });
 
+    test("it should find a user by email from the db", () => {
+      let email = "dk@gmail.com";
+      let username = "DK";
+      return UserModel.fimdOneUser(mockDB, { email }).then((data) => {
+        expect(data.user_id).toBe(1);
+        expect(data.username).toBe(username);
+      });
+    });
+
     test("it should create a new user given username, email, and a password", () => {
       let username = "TEST_TEST";
       let email = "test@test.com";
@@ -52,6 +61,18 @@ describe("test user model queries", () => {
         .then((data) => expect(data).toBeUndefined())
         .catch((e) => {
           throw new Error("should not be in catch block");
+        });
+    });
+
+    test("it should find the salt of a user", () => {
+      let user_id = 2;
+      let expected = "kosherSalt";
+      return UserModel.findUserSaltAndHash(mockDB, { user_id })
+        .then((data) => {
+          expect(data.salt).toBe(expected);
+        })
+        .catch((e) => {
+          throw new Error("salt not found");
         });
     });
   } catch (e) {
