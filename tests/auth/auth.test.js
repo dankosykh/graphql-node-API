@@ -4,7 +4,7 @@ var secretKey = "bucksin6";
 describe("test jwt functions", () => {
   var testToken;
   let user = {
-    user_id: 4,
+    user_id: 1,
     username: "DK",
   };
 
@@ -26,17 +26,13 @@ describe("test jwt functions", () => {
       });
   });
 
-  it("should not be able to decode expired jwt token", () => {
-    testToken = generateToken(user, secretKey, "1s");
-
-    jest.setTimeout(1500);
-    verifyToken(testToken, secretKey)
+  it("should return null with invalid token", () => {
+    verifyToken("a" + testToken.slice(1), secretKey)
       .then((decoded) => {
-        expect(decoded.user_id).toBeFalsey();
-        expect(decoded.username).toBeFalsey();
+        expect(decoded).toBe(null);
       })
-      .catch((e) => {
-        throw new Error("Should have passed into then block");
+      .catch(() => {
+        throw new Error("Did not return null");
       });
   });
 });

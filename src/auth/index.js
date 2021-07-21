@@ -1,14 +1,8 @@
 const jwt = require("jsonwebtoken");
+const { UserModel } = require("../db");
 
-const generateToken = ({ user_id, username }, secret, expiration = "1h") => {
-  const token = jwt.sign(
-    {
-      user_id,
-      username,
-    },
-    secret,
-    { expiresIn: expiration }
-  );
+const generateToken = ({ user_id, username }, secret) => {
+  const token = jwt.sign({ user_id, username }, secret);
   return token;
 };
 
@@ -21,4 +15,14 @@ const verifyToken = (token, secret) => {
   });
 };
 
-module.exports = { generateToken, verifyToken };
+const getUserContent = (token, secret, db) => {
+  return verifyToken(token, secret)
+    .then((decoded) =>
+      UserModel.fimdOneUser(db, { username: decoded.username })
+    )
+    .catch((e) => null);
+};
+
+const authorized = () => {};
+
+module.exports = { generateToken, verifyToken, getUserContent };
