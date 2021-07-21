@@ -29,10 +29,10 @@ const resolvers = {
       let { username, email, password } = input;
       return UserModel.createNewUser(db, { username, email, password })
         .then((data) => {
-          const user_id = data.rows[0].user_id;
-          return UserModel.fimdOneUser(db, { user_id });
+          return UserModel.fimdOneUser(db, { user_id: data.rows[0].user_id });
         })
         .then((user) => {
+          let { user_id, username } = user;
           const token = generateToken(
             { username, user_id },
             process.env.SECRET
