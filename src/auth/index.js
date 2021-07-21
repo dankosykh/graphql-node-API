@@ -1,8 +1,10 @@
 const jwt = require("jsonwebtoken");
 const { UserModel } = require("../db");
 
-const generateToken = ({ user_id, username }, secret) => {
-  const token = jwt.sign({ user_id, username }, secret);
+const generateToken = ({ user_id, username }, secret, expiration = "1h") => {
+  const token = jwt.sign({ user_id, username }, secret, {
+    expiresIn: expiration,
+  });
   return token;
 };
 
