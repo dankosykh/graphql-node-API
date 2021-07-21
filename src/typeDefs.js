@@ -33,10 +33,10 @@ const typeDefs = gql`
     post(post_id: ID!): Post
   }
 
-  type Mutation {
-    # signUp: AuthUser
-    # signIn(email: String!, password: String!): AuthUser
-  }
+  # type Mutation {
+  #   # signUp: AuthUser
+  #   # signIn(email: String!, password: String!): AuthUser
+  # }
 `;
 
 module.exports = typeDefs;

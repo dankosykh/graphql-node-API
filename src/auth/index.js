@@ -23,6 +23,11 @@ const getUserContent = (token, secret, db) => {
     .catch((e) => null);
 };
 
-const authorized = () => {};
+const authenticated = (context, next) => {
+  if (!context.username) {
+    throw new Error("Authenticated Error");
+  }
+  return next();
+};
 
-module.exports = { generateToken, verifyToken, getUserContent };
+module.exports = { generateToken, verifyToken, getUserContent, authenticated };

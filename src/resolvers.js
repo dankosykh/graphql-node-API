@@ -1,20 +1,27 @@
 // const auth = require("./auth");
 const { db, UserModel, PostModel } = require("./db");
+const { authenticated } = require("./auth");
 
 const resolvers = {
   Query: {
-    user: (_, { username }, context) => {
-      return UserModel.fimdOneUser(db, { username });
+    user: (_, __, { username }) => {
+      return authenticated({ username }, () =>
+        UserModel.fimdOneUser(db, { username })
+      );
     },
-    allPosts: (_, __, context) => {
-      return PostModel.findPosts(db, {});
+    userPosts: (_, { user_id }, { username }) => {
+      return authenticated({ username }, () =>
+        PostModel.findPosts(db, { user_id })
+      );
     },
-    userPosts: (_, { user_id }, context) => {
-      return PostModel.findPosts(db, { user_id });
+    allPosts: (_, __, { username }) => {
+      return authenticated({ username }, () => PostModel.findPosts(db, {}));
     },
-    post: (_, { post_id }, context) => {
-      console.log(context);
-      return PostModel.findOnePost(db, { post_id });
+    post: (_, { post_id }, { username }) => {
+      return authenticated(
+        { username },
+        PostModel.findOnePost(db, { post_id })
+      );
     },
   },
   // Mutation: {
