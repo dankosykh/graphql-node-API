@@ -16,10 +16,13 @@ const resolvers = {
       return PostModel.findOnePost(db, { post_id });
     },
   },
-  // Mutation: {
-  //   signUp(_ , {input},
-  // },
+  Mutation: {
+    signUp: (_, { input }, context) => {
+      // check db if unique fields
+    },
+  },
   Post: {
+    // ddouble check this one
     author: (post, __, { UserModel }) => {
       return UserModel.fimdOneUser(db, { user_id: post.user_id });
     },
