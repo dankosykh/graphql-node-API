@@ -1,6 +1,6 @@
 // const auth = require("./auth");
 const { db, UserModel, PostModel, hash } = require("./db");
-const { authenticated, generateToken, isUniqueField } = require("./auth");
+const { authenticated, generateToken } = require("./auth");
 
 const resolvers = {
   Query: {
